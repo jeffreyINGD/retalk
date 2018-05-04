@@ -1,11 +1,10 @@
+/*
 package com.jeffrey.retalk.dao;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jeffrey.retalk.dao.GoodsDao;
-import com.jeffrey.retalk.dao.OrderDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,3 +51,4 @@ public class OrderDaoTest {
 	}
 
 }
+*/

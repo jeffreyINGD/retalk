@@ -25,8 +25,11 @@ public class BaseResult<T> implements Serializable {
     public BaseResult(boolean success, String error) {
         this.success = success;
         this.error = error;
-    }
 
+    }
+    public BaseResult() {
+
+    }
     public BaseResult(boolean success, T data) {
         this.success = success;
         this.data = data;

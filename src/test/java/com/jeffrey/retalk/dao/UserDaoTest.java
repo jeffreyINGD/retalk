@@ -42,7 +42,6 @@ public class UserDaoTest {
 	
 	@Test
 	public void testAddScore() {
-		userDao.addScore(10);
 		List<User> list=userDao.queryAll(0, 100);
 		for (User user : list) {
 			System.out.println(user);

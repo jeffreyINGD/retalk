@@ -1,6 +1,6 @@
+/*
 package com.jeffrey.retalk.dao;
 
-import com.jeffrey.retalk.dao.GoodsDao;
 import com.jeffrey.retalk.entity.Goods;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,3 +48,4 @@ public class GoodsDaoTest {
 	}
 
 }
+*/

@@ -9,64 +9,104 @@ import java.util.Date;
  *
  */
 public class User {
-	
-	private long userId;
-	
-	private String userName;
-	
-	private long userPhone;
-	
-	private Date createTime;
-	
-	private int score;
 
-	public long getUserId() {
+	private Integer userId;
+	private String loginName;
+	private String displayName;
+	private String niceName;
+	private String password;
+	private String email;
+	private String qq;
+	private String phone;
+	private String url;
+	private Date registered;
+	private Integer status;
+
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-
-	public String getUserName() {
-		return userName;
+	public String getLoginName() {
+		return loginName;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
 	}
 
-	public long getUserPhone() {
-		return userPhone;
+	public String getDisplayName() {
+		return displayName;
 	}
 
-	public void setUserPhone(long userPhone) {
-		this.userPhone = userPhone;
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
+	public String getNiceName() {
+		return niceName;
 	}
 
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public void setNiceName(String niceName) {
+		this.niceName = niceName;
 	}
 
-	public int getScore() {
-		return score;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setScore(int score) {
-		this.score = score;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", userName=" + userName + ", userPhone=" + userPhone + ", createTime=" + createTime + ", score=" + score
-				+ "]";
+	public String getEmail() {
+		return email;
 	}
 
-	
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Date getRegistered() {
+		return registered;
+	}
+
+	public void setRegistered(Date registered) {
+		this.registered = registered;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 }

@@ -1,9 +1,10 @@
 package com.jeffrey.retalk.service.impl;
 
-import com.jeffrey.retalk.dao.UserDao;
 import com.jeffrey.retalk.cache.RedisCache;
+import com.jeffrey.retalk.dao.UserDao;
 import com.jeffrey.retalk.entity.User;
 import com.jeffrey.retalk.service.UserService;
+import com.jeffrey.retalk.util.MessageDigestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,28 @@ public class UserServiceImpl implements UserService {
 		}
 		return result_cache;
 	}
-	
-	
 
+	@Override
+	public User getUser(String loginName, String password) {
+		User user = userDao.queryByLoginName(loginName);
+		String encodePass = MessageDigestUtil.encode(password,"SHA1");
+		System.out.println(encodePass);
+		if(user !=null && encodePass.equals(user.getPassword()))
+		{
+			return user;
+		}
+		return null;
+	}
+
+
+	public void saveUser(User user){
+		String encodePass = MessageDigestUtil.encode(user.getPassword(),"SHA1");
+		user.setPassword(encodePass);
+		userDao.savaUser(user);
+	}
+
+	public static void main(String[] args) {
+		String encodePass = MessageDigestUtil.encode("123456","SHA1");
+		System.out.println(encodePass);
+	}
 }

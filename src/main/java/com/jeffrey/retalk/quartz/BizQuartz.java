@@ -46,7 +46,7 @@ public class BizQuartz {
 	@Scheduled(cron = "0 0/1 9-17 * * ? ")
 	public void addUserScore() {
 		LOG.info("@Scheduled--------addUserScore()");
-		userDao.addScore(10);
+//		userDao.addScore(10);
 	}
 	/**
 	 * 每隔5分钟定时清理缓存
