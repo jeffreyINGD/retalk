@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jeffrey.dao.PostMapper" >
+  <resultMap id="BaseResultMap" type="com.jeffrey.retalk.entity.Post" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="author" property="author" jdbcType="INTEGER" />
+    <result column="postDate" property="postDate" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="excerpt" property="excerpt" jdbcType="VARCHAR" />
+    <result column="post_status" property="post_status" jdbcType="VARCHAR" />
+    <result column="comment_status" property="comment_status" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modified_time" jdbcType="INTEGER" />
+    <result column="parent" property="parent" jdbcType="INTEGER" />
+    <result column="post_type" property="post_type" jdbcType="INTEGER" />
+    <result column="coment_count" property="coment_count" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, author, postDate, content, title, excerpt, post_status, comment_status, modified_time, 
+    parent, post_type, coment_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from post
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from post
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jeffrey.retalk.entity.Post" >
+    insert into post (id, author, post_date,
+      content, title, excerpt, 
+      post_status, comment_status, modified_time,
+      parent, post_type, coment_count
+      )
+    values (#{id,jdbcType=INTEGER}, #{author,jdbcType=INTEGER}, #{postDate,jdbcType=TIMESTAMP}, 
+      #{content,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{excerpt,jdbcType=VARCHAR}, 
+      #{postStatus,jdbcType=VARCHAR}, #{commentStatus,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=INTEGER},
+      #{parent,jdbcType=INTEGER}, #{postType,jdbcType=INTEGER}, #{comentCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.Post" >
+    insert into post
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="postDate != null" >
+        postDate,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="excerpt != null" >
+        excerpt,
+      </if>
+      <if test="post_status != null" >
+        post_status,
+      </if>
+      <if test="comment_status != null" >
+        comment_status,
+      </if>
+      <if test="modified_time != null" >
+        modified_time,
+      </if>
+      <if test="parent != null" >
+        parent,
+      </if>
+      <if test="post_type != null" >
+        post_type,
+      </if>
+      <if test="coment_count != null" >
+        coment_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=INTEGER},
+      </if>
+      <if test="postDate != null" >
+        #{postDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="excerpt != null" >
+        #{excerpt,jdbcType=VARCHAR},
+      </if>
+      <if test="post_status != null" >
+        #{postStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="comment_status != null" >
+        #{commentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="modified_time != null" >
+        #{modifiedTime,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null" >
+        #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="post_type != null" >
+        #{postType,jdbcType=INTEGER},
+      </if>
+      <if test="coment_count != null" >
+        #{comentCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jeffrey.retalk.entity.Post" >
+    update post
+    <set >
+      <if test="author != null" >
+        author = #{author,jdbcType=INTEGER},
+      </if>
+      <if test="postDate != null" >
+        postDate = #{postDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="excerpt != null" >
+        excerpt = #{excerpt,jdbcType=VARCHAR},
+      </if>
+      <if test="post_status != null" >
+        post_status = #{postStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="comment_status != null" >
+        comment_status = #{commentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="modified_time != null" >
+        modified_time = #{modifiedTime,jdbcType=INTEGER},
+      </if>
+      <if test="parent != null" >
+        parent = #{parent,jdbcType=INTEGER},
+      </if>
+      <if test="post_type != null" >
+        post_type = #{postType,jdbcType=INTEGER},
+      </if>
+      <if test="coment_count != null" >
+        coment_count = #{comentCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jeffrey.retalk.entity.Post" >
+    update post
+    set author = #{author,jdbcType=INTEGER},
+      postDate = #{postDate,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      excerpt = #{excerpt,jdbcType=VARCHAR},
+      post_status = #{postStatus,jdbcType=VARCHAR},
+      comment_status = #{commentStatus,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=INTEGER},
+      parent = #{parent,jdbcType=INTEGER},
+      post_type = #{postType,jdbcType=INTEGER},
+      coment_count = #{comentCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

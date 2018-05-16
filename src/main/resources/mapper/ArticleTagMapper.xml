@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jeffrey.retalk.dao.ArticleTagMapper" >
+  <resultMap id="BaseResultMap" type="com.jeffrey.retalk.entity.ArticleTagKey" >
+    <id column="article_id" property="articleId" jdbcType="BIGINT" />
+    <id column="tag_id" property="tagId" jdbcType="BIGINT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.jeffrey.retalk.entity.ArticleTagKey" >
+    delete from article_tag
+    where article_id = #{articleId,jdbcType=BIGINT}
+      and tag_id = #{tagId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jeffrey.retalk.entity.ArticleTagKey" >
+    insert into article_tag (article_id, tag_id)
+    values (#{articleId,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.ArticleTagKey" >
+    insert into article_tag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>

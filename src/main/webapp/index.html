@@ -1,108 +1,69 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<title>EasyWeb</title>
+	<title>retalk index page</title>
+	<link  href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.css" rel="stylesheet">
+	<script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
 	<link rel="stylesheet" href="assets/libs/layui/css/layui.css" />
 	<link rel="stylesheet" href="assets/css/comment.css" />
 </head>
 
-<body class="layui-layout-body">
-	<div class="layui-layout layui-layout-admin">
-		<!-- 头部 -->
-		<div class="layui-header">
-			<div class="layui-logo"><img src="assets/images/logo.png"/>EasyWeb</div>
-			<ul class="layui-nav layui-layout-left">
-		      <li class="layui-nav-item"><a href="javascript:;" id="switchNav"><i class="layui-icon">&#xe668;</i></a></li>
-		    </ul>
-			<ul class="layui-nav layui-layout-right">
-				<li class="layui-nav-item">
-					<a href="javascript:;">
-						<img id="userHead" src="assets/images/head.jpg" class="layui-nav-img"><span id="userNickName"></span>
-					</a>
-					<dl class="layui-nav-child">
-						<dd>
-							<a href="javascript:myInfo();"><i class="layui-icon">&#xe612;</i>&emsp;个人信息</a>
-						</dd>
-						<dd>
-							<a href="javascript:updatePsw();"><i class="layui-icon">&#xe631;</i>&emsp;修改密码</a>
-						</dd>
-						<dd>
-							<a href="javascript:loginOut();"><i class="layui-icon">&#xe66d;</i>&emsp;退出登录</a>
-						</dd>
-					</dl>
-				</li>
+<body>
+<div class="container">
+	<h1 class="page-header">
+		retalk</small>
+	</h1>
+	<nav class="navbar navbar-inverse">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"></a>
+		</div>
+		<div id="navbar-menu" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">首页</a></li>
+				<li><a href="#">分类</a></li>
+				<li><a href="#">文章</a></li>
+				<li><a href="#">趣事</a></li>
+				<li><a href="#">关于我</a></li>
 			</ul>
 		</div>
-		<!-- 侧边栏 -->
-		<div class="layui-side layui-bg-black">
-			<div class="layui-side-scroll">
-				<ul class="layui-nav layui-nav-tree" id="index-nav" lay-filter="index-nav" style="margin-top: 25px;">
-				</ul>
-			</div>
-		</div>
-		<!-- 主体部分 -->
-		<div class="layui-body" id="main-content" style="padding: 15px;">
-			
-		</div>
-		<!-- 底部 -->
-		<div class="layui-footer">
-			Copyright © 2018 EasyWeb All rights reserved.
-		</div>
-		<!-- 手机屏幕遮罩层 -->
-		<div class="site-mobile-shade"></div>
-	</div>
+	</nav>
 
-	<script type="text/javascript" src="assets/libs/jquery/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="assets/libs/q.js"></script>
-	<script type="text/javascript" src="assets/libs/layui/layui.all.js"></script>
-	<script type="text/javascript" src="assets/js/comment.js"></script>
-	<script type="text/javascript" src="assets/js/index.js"></script>
-	<!-- 侧导航渲染模板 -->
-	<script id="sideNav" type="text/html">
-		{{#  layui.each(d, function(index, item){ }}
-		<li class="layui-nav-item">
-			<a class="" href="javascript:openNavItem();"><i class="layui-icon">{{ item.permissionIcon }}</i>&emsp;<span>{{ item.permissionName }}</span></a>
-			<dl class="layui-nav-child">
-				{{#  layui.each(item.subMenus, function(index, subItem){ }}
-				<dd>
-					<a href="#!{{ subItem.permissionValue }}">{{ subItem.permissionName }}</a>
-				</dd>
-				{{#  }); }}
-			</dl>
-		</li>
-		{{#  }); }}
-	</script>
-	<!-- 修改密码弹窗 -->
-	<script type="text/html" id="pswModel">
-	<form id="pswForm" class="layui-form model-form" action="" method="put">
-		<div class="layui-form-item">
-			<label class="layui-form-label">旧密码</label>
- 			<div class="layui-input-block">
-				<input name="oldPsw" placeholder="请输入旧密码" type="password" class="layui-input" maxlength="12" lay-verify="required|pass" required />
-			</div>
+
+<div id="content" class="row-fluid">
+	<div class="col-md-9">
+		<h2>Main Content Section</h2>
+		<div>
+			张文锋的说法是顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶saddle阿斯顿
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">新密码</label>
- 			<div class="layui-input-block">
-				<input name="newPsw" placeholder="请输入新密码" type="password" class="layui-input" maxlength="12" lay-verify="required|pass" required />
-			</div>
+
+		<div>
+			张文锋的说法是顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶saddle阿斯顿
 		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">确认密码</label>
- 			<div class="layui-input-block">
-				<input name="newPsw2" placeholder="请再次输入新密码" type="password" class="layui-input" maxlength="12" lay-verify="required|psw2" required />
-			</div>
-		</div>
-		<div class="layui-form-item model-form-footer">
-			<button class="layui-btn layui-btn-primary" type="button" id="pswCancel">取消</button>
-			<button class="layui-btn" lay-filter="pswSubmit" lay-submit>修改</button>
-		</div>
-	</form>
-	</script>
+	</div>
+	<div class="col-md-3">
+		<h2>分类</h2>
+		<ul class="nav nav-tabs nav-stacked">
+			<li><a href='#'>java</a></li>
+			<li><a href='#'>Another Link 2</a></li>
+			<li><a href='#'>Another Link 3</a></li>
+		</ul>
+	</div>
+</div>
+</div>
 </body>
 
 </html>

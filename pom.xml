@@ -9,7 +9,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
-		<spring.version>4.2.0.RELEASE</spring.version>
+		<spring.version>4.3.9.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
@@ -228,7 +228,24 @@
 			<version>1.0.8</version>
 		</dependency>
 		<!--mybatis 数据访问层 end -->
-	</dependencies>
+		<!-- https://mvnrepository.com/artifact/org.freemarker/freemarker -->
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-thymeleaf -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>1.5.3.RELEASE</version>
+		</dependency>
+
+		<!-- http://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity4 -->
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<version>2.1.2.RELEASE</version>
+		</dependency>
+
+
+
+    </dependencies>
 	<!-- Build Settings -->
 	<!--http://maven.apache.org/pom.html#Build_Settings -->
 	<build>
@@ -257,4 +274,5 @@
 			</plugin>
 		</plugins>
 	</build>
+
 </project>
