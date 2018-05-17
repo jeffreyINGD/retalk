@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50559
 File Encoding         : 65001
 
-Date: 2018-05-16 17:17:52
+Date: 2018-05-17 17:17:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -71,18 +71,30 @@ INSERT INTO `admin_user_role` VALUES ('1', '1', '12');
 -- ----------------------------
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
-  `id` bigint(64) unsigned NOT NULL,
+  `id` bigint(64) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(100) DEFAULT NULL,
   `body` mediumtext,
   `created_time` datetime DEFAULT NULL,
   `modified_time` datetime DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
+INSERT INTO `article` VALUES ('1', '而微软', '二个好地方', null, null, null);
+INSERT INTO `article` VALUES ('2', '而', '更多', null, null, null);
+INSERT INTO `article` VALUES ('3', null, null, null, null, null);
+INSERT INTO `article` VALUES ('4', null, null, null, null, null);
+INSERT INTO `article` VALUES ('5', null, null, null, null, null);
+INSERT INTO `article` VALUES ('6', null, null, null, null, null);
+INSERT INTO `article` VALUES ('7', null, null, null, null, null);
+INSERT INTO `article` VALUES ('8', null, null, null, null, null);
+INSERT INTO `article` VALUES ('9', null, null, null, null, null);
+INSERT INTO `article` VALUES ('10', null, null, null, null, null);
+INSERT INTO `article` VALUES ('11', null, null, null, null, null);
+INSERT INTO `article` VALUES ('12', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for `article_tag`
@@ -117,8 +129,8 @@ CREATE TABLE `menu` (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('0', null, '2343', null, null, '2018-05-16 10:47:41', null);
-INSERT INTO `menu` VALUES ('1', '0', '2132', null, null, null, null);
+INSERT INTO `menu` VALUES ('0', null, '', null, null, '2018-05-17 16:45:13', null);
+INSERT INTO `menu` VALUES ('1', '0', '', null, null, '2018-05-17 16:45:13', null);
 
 -- ----------------------------
 -- Table structure for `post`
@@ -152,7 +164,7 @@ CREATE TABLE `tag` (
   `id` bigint(64) unsigned NOT NULL,
   `name` varchar(20) NOT NULL,
   `description` varchar(32) DEFAULT NULL,
-  `user_id` bigint(20) DEFAULT NULL,
+  `user_name` varchar(20) DEFAULT NULL,
   `created_time` datetime DEFAULT NULL,
   `modified_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
