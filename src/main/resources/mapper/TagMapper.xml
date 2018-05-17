@@ -5,13 +5,30 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, name, description, user_id, created_time, modified_time
+    id, name, description, user_name, created_time, modified_time
   </sql>
+
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tag
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryByTagNameAndUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from tag
+    where user_name = #{userName,jdbcType=VARCHAR}
+    and name = #{name,jdbcType=VARCHAR}
+  </select>
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -24,10 +41,10 @@
   </delete>
   <insert id="insert" parameterType="com.jeffrey.retalk.entity.Tag" >
     insert into tag (id, name, description, 
-      user_id, created_time, modified_time
+      user_name, created_time, modified_time
       )
     values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=BIGINT}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
+      #{userName,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.Tag" >
@@ -42,8 +59,8 @@
       <if test="description != null" >
         description,
       </if>
-      <if test="userId != null" >
-        user_id,
+      <if test="userName != null" >
+        userName,
       </if>
       <if test="createdTime != null" >
         created_time,
@@ -62,8 +79,8 @@
       <if test="description != null" >
         #{description,jdbcType=VARCHAR},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null" >
         #{createdTime,jdbcType=TIMESTAMP},
@@ -83,7 +100,7 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
+        userName = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null" >
         created_time = #{createdTime,jdbcType=TIMESTAMP},
@@ -98,7 +115,7 @@
     update tag
     set name = #{name,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=BIGINT},
+      userName = #{userId,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

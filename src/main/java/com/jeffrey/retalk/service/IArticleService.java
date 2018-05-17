@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface IArticleService {
     long getArticlesCount(String loginName);
-    List getArticlesOfOnePage(String loginName,int pageNo);
+    List getArticlesOfOnePage(String loginName,int pageNo,int pageSize);
 
     Article getArticleById(long articleId, String name);
 

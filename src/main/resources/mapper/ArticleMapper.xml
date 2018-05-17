@@ -6,17 +6,31 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.jeffrey.retalk.entity.Article" extends="BaseResultMap" >
     <result column="body" property="body" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, created_time, modified_time, user_id
+    id, title, created_time, modified_time, user_name
   </sql>
   <sql id="Blob_Column_List" >
     body
   </sql>
+
+  <select id="countByUserName" resultType="java.lang.Long" parameterType="java.lang.String">
+    select count(id)
+    FROM article
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  <select id="queryByUserName" resultType="Article">
+    select
+    <include refid="Base_Column_List" />
+    FROM article
+    where user_name = #{userName,jdbcType=VARCHAR}
+    ORDER BY created_time DESC
+    limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -30,11 +44,11 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.jeffrey.retalk.entity.Article" >
-    insert into article (id, title, created_time, 
-      modified_time, user_id, body
+    insert into article (title, created_time,
+      modified_time, user_name, body
       )
-    values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{modifiedTime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT}, #{body,jdbcType=LONGVARCHAR}
+    values (#{title,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP},
+      #{modifiedTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, #{body,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.Article" >
@@ -52,8 +66,8 @@
       <if test="modifiedTime != null" >
         modified_time,
       </if>
-      <if test="userId != null" >
-        user_id,
+      <if test="userName != null" >
+        user_name,
       </if>
       <if test="body != null" >
         body,
@@ -72,8 +86,8 @@
       <if test="modifiedTime != null" >
         #{modifiedTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
       </if>
       <if test="body != null" >
         #{body,jdbcType=LONGVARCHAR},
@@ -92,8 +106,8 @@
       <if test="modifiedTime != null" >
         modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="body != null" >
         body = #{body,jdbcType=LONGVARCHAR},
@@ -106,7 +120,7 @@
     set title = #{title,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
       body = #{body,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -115,7 +129,7 @@
     set title = #{title,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
-      user_id = #{userId,jdbcType=BIGINT}
+      user_name = #{userName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

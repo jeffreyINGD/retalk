@@ -9,23 +9,26 @@ function checkArticleIsExisted() {
 
 // insert a article into database
 function insertArticle() {
+
+    var article = {
+        "title": $("#articleTitle").val(),
+        "body": $("#demo").text()
+    };
+    alert(JSON.stringify(article))
     $.ajax({
         type: "post",
+        data:article,
+        dataType: "json",
         contentType: "application/json",
-        url: "/article/new",
+        url: "/article/add",
         timeout: 600000,
         async: false,
         success: function (articleId) {
+            alert(articleId)
             $("#articleId").val(articleId);
         },
         error: function (e) {
             console.log(e);
-        },
-        // add csrf header and token
-        beforeSend: function (xhr) {
-            let header = $("meta[name='_csrf_header']").attr("content");
-            let token = $("meta[name='_csrf']").attr("content");
-            xhr.setRequestHeader(header, token);
         }
     });
 }
@@ -37,7 +40,7 @@ function addTag() {
         mode: "inline",
         type: "text",
         pk: 1,
-        url: "/tag/n",
+        url: "/tag/new",
         placeholder: "add a tag",
         ajaxOptions: {
             beforeSend: function (xhr) {
@@ -75,12 +78,6 @@ function insertArticleTag(articleId, tagId) {
         },
         error: function (e) {
             console.log(e);
-        },
-        // add csrf header and token
-        beforeSend: function (xhr) {
-            let header = $("meta[name='_csrf_header']").attr("content");
-            let token = $("meta[name='_csrf']").attr("content");
-            xhr.setRequestHeader(header, token);
         }
     });
 }
@@ -100,12 +97,6 @@ function deleteArticleTag(articleId, tagId) {
         },
         error: function (e) {
             console.log(e);
-        },
-        // add csrf header and token
-        beforeSend: function (xhr) {
-            let header = $("meta[name='_csrf_header']").attr("content");
-            let token = $("meta[name='_csrf']").attr("content");
-            xhr.setRequestHeader(header, token);
         }
     });
 }
@@ -158,12 +149,6 @@ function articleDelete(articleId) {
         error: function (e) {
             console.log(e);
             window.location.href = "/";
-        },
-        // add csrf header and token
-        beforeSend: function (xhr) {
-            let header = $("meta[name='_csrf_header']").attr("content");
-            let token = $("meta[name='_csrf']").attr("content");
-            xhr.setRequestHeader(header, token);
         }
     });
 }

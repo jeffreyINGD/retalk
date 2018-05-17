@@ -9,7 +9,7 @@ public class Tag {
 
     private String description;
 
-    private Long userId;
+    private String userName;
 
     private Date createdTime;
 
@@ -39,12 +39,12 @@ public class Tag {
         this.description = description == null ? null : description.trim();
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getCreatedTime() {

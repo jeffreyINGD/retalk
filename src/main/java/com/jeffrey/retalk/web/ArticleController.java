@@ -4,6 +4,7 @@ import com.jeffrey.retalk.entity.Article;
 import com.jeffrey.retalk.entity.Tag;
 import com.jeffrey.retalk.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +15,19 @@ import java.util.List;
 
 @Controller
 public class ArticleController {
-
+    @Autowired
     private IArticleService articleService;
 
-    @Autowired
+
     public ArticleController(IArticleService articleService) {
         this.articleService = articleService;
     }
 
-    @GetMapping("/")
+    @GetMapping("/article")
     public String index(ModelMap modelMap, Principal principal) {
-        long articlesCount = articleService.getArticlesCount(principal.getName());
+        long articlesCount = articleService.getArticlesCount("");
 
-        List<Article> articles = articleService.getArticlesOfOnePage(principal.getName(), 1);
+        List<Article> articles = articleService.getArticlesOfOnePage("", 1,15);
 
         modelMap.addAttribute("articles", articles);
         modelMap.addAttribute("articlesCount", articlesCount);
@@ -35,9 +36,15 @@ public class ArticleController {
         return "article/index";
     }
 
+    @PostMapping(value = "/article/add",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String newArticle(@RequestBody Article article) {
+        long id = articleService.insertArticle(article);
+        return id+"";
+    }
+
     @GetMapping("/article/new")
-    public Article newArticle(ModelMap modelMap) {
-        Article article = new Article();
+    public Article newArticlePage(ModelMap modelMap,Article article) {
 
         modelMap.addAttribute("article", article);
 
@@ -46,7 +53,7 @@ public class ArticleController {
 
     @GetMapping(value = "/article/{articleId}")
     public String getArticle(@PathVariable long articleId, ModelMap modelMap, Principal principal) {
-        Article article = articleService.getArticleById(articleId, principal.getName());
+        Article article = articleService.getArticleById(articleId, "");
 
         modelMap.addAttribute("article", article);
 
@@ -55,7 +62,7 @@ public class ArticleController {
 
     @GetMapping(value = "/article/modify/{articleId}")
     public String updateArticle(@PathVariable long articleId, ModelMap modelMap, Principal principal) {
-        Article article = articleService.getArticleById(articleId, principal.getName());
+        Article article = articleService.getArticleById(articleId, "");
         List<Tag> tags = articleService.getAllTagsOfOneArticle(articleId);
 
         modelMap.addAttribute("article", article);
@@ -67,20 +74,20 @@ public class ArticleController {
     @PostMapping(value = "/page/{page}")
     @ResponseBody
     public List<Article> pagination(@PathVariable int page, Principal principal) {
-        return articleService.getArticlesOfOnePage(principal.getName(), page);
+        return articleService.getArticlesOfOnePage("", page,15);
     }
 
     @PostMapping(value = "/article/new")
     @ResponseBody
     public long insertArticle(Principal principal) {
         Article article = new Article();
-        article.setUserId(Long.parseLong(principal.getName()));
+        article.setUserName((principal.getName()));
         return articleService.insertArticle(article);
     }
 
     @PostMapping(value = "/article/delete/{articleId}")
     public String deleteArticle(@PathVariable long articleId, Principal principal) {
-        articleService.deleteArticleById(articleId, principal.getName());
+        articleService.deleteArticleById(articleId, "");
 
         return "redirect:/";
     }
@@ -88,8 +95,8 @@ public class ArticleController {
     @ResponseBody
     @PostMapping(value = "/article/update")
     public Article updateArticle(@ModelAttribute Article article, Principal principal) {
-        int page = articleService.getArticlePage(principal.getName(), article.getId());
-        articleService.updateArticle(article, principal.getName(), page);
+        int page = articleService.getArticlePage("", article.getId());
+        articleService.updateArticle(article, "", page);
 
         return article;
     }

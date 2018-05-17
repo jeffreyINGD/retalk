@@ -2,6 +2,8 @@ package com.jeffrey.retalk.dao;
 
 import com.jeffrey.retalk.entity.Tag;
 
+import java.util.List;
+
 public interface TagMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,9 @@ public interface TagMapper {
     int updateByPrimaryKeySelective(Tag record);
 
     int updateByPrimaryKey(Tag record);
+
+
+    List<Tag> queryAll(String userName);
+
+    Tag queryByTagNameAndUserName(String tagName, String userName);
 }

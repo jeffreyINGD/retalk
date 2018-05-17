@@ -1,5 +1,7 @@
 package com.jeffrey.retalk.web;
 
+import com.jeffrey.retalk.entity.Tag;
+import com.jeffrey.retalk.service.ITagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,7 +22,7 @@ public class TagController {
 
     @GetMapping("/tag")
     public String index(ModelMap modelMap, Principal principal) {
-        List<Tag> tags = tagService.getAllTags(principal.getName());
+        List<Tag> tags = tagService.getAllTags("");
 
         modelMap.addAttribute("tags", tags);
 
@@ -29,8 +31,8 @@ public class TagController {
 
     @GetMapping("/tag/{tagId}")
     public String getOneTag(@PathVariable("tagId") long tagId, ModelMap modelMap, Principal principal) {
-        Tag tag = tagService.getOneTagById(tagId);
-        List<Tag> tags = tagService.getAllTags(principal.getName());
+        Tag tag = tagService.getTagById(tagId);
+        List<Tag> tags = tagService.getAllTags("");
 
         modelMap.addAttribute("tag", tag);
         modelMap.addAttribute("tags", tags);
@@ -41,20 +43,20 @@ public class TagController {
     @ResponseBody
     @PostMapping("/tag/{tagId}")
     public Tag getOneTag(@PathVariable("tagId") long tagId) {
-        return tagService.getOneTagById(tagId);
+        return tagService.getTagById(tagId);
     }
 
     @ResponseBody
-    @PostMapping("/tag/n")
+    @PostMapping("/tag/new")
     public Tag newTag(@RequestParam("value") String tagName, Principal principal) {
-        Tag isTag = tagService.getOneTagByName(tagName, principal.getName());
+        Tag isTag = tagService.getTagByName(tagName, "");
         if (isTag != null ) {
             return isTag;
         } else {
             Tag tag = new Tag();
             tag.setName(tagName);
-            tag.setUsername(principal.getName());
-            tagService.insertOneTag(tag);
+            tag.setUserName("");
+            tagService.insertTag(tag);
             return tag;
         }
     }
@@ -67,7 +69,7 @@ public class TagController {
 
     @PostMapping("/tag/delete/{tagId}")
     public String deleteOneTag(@PathVariable("tagId") long tagId) {
-        tagService.deleteOneTagById(tagId);
+        tagService.deleteTagById(tagId);
 
         return "redirect:/";
     }
