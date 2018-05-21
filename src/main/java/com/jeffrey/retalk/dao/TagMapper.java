@@ -1,6 +1,7 @@
 package com.jeffrey.retalk.dao;
 
 import com.jeffrey.retalk.entity.Tag;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface TagMapper {
 
     List<Tag> queryAll(String userName);
 
-    Tag queryByTagNameAndUserName(String tagName, String userName);
+    Tag queryByTagNameAndUserName(@Param(value = "name") String tagName, @Param(value = "userName") String userName);
 }

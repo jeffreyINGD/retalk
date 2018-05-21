@@ -29,7 +29,7 @@
     <!-- csrf -->
   <!--  <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />-->
-    <script src="/js/common.js?22"></script>
+    <script src="/js/common.js?2322"></script>
     <script>
         window.setInterval(function () {
             $("#addTag").text("");
@@ -75,7 +75,6 @@
             
             $("#articleSave").click(function (event) {
                 event.preventDefault();
-                alert(flag)
                 $("#demo").text(simplemde.value());
                 if (flag) {
                     updateArticle();
@@ -83,12 +82,13 @@
                 } else {
                     window.location.href = "/";
                 }
+                return false;
             });
 
-            window.setInterval(function () {
-                $("#demo").text(simplemde.value());
-                updateArticle();
-            }, 20000);
+           /* window.setInterval(function () {
+             $("#demo").text(simplemde.value());
+             updateArticle();
+             }, 20000);*/
 
         });
     </script>

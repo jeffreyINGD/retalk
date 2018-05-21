@@ -16,14 +16,14 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from admin_menu
+    from menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </select>
 
   <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     SELECT
     menu.menu_id, menu.parent_id, menu.name, menu.url, menu.image, menu.create_time, menu.modifyed_time
-    from admin_menu menu,admin_user_role ur,admin_role_menu rm
+    from menu menu,admin_user_role ur,admin_role_menu rm
 
     where ur.user_id=#{userId,jdbcType=INTEGER}
     AND rm.role_id = ur.role_id
@@ -31,11 +31,11 @@
     order by parent_id, menu_id;
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from admin_menu
+    delete from menu
     where menu_id = #{menuId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.jeffrey.retalk.entity.AdminMenu" >
-    insert into admin_menu (menu_id, parent_id, name, 
+    insert into menu (menu_id, parent_id, name, 
       url, image, create_time, 
       modifyed_time)
     values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
@@ -43,7 +43,7 @@
       #{modifyedTime,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.AdminMenu" >
-    insert into admin_menu
+    insert into menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="menuId != null" >
         menu_id,
@@ -92,7 +92,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.jeffrey.retalk.entity.AdminMenu" >
-    update admin_menu
+    update menu
     <set >
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=INTEGER},
@@ -116,7 +116,7 @@
     where menu_id = #{menuId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.jeffrey.retalk.entity.AdminMenu" >
-    update admin_menu
+    update menu
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},

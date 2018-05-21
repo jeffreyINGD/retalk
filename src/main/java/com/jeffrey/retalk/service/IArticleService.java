@@ -18,9 +18,9 @@ public interface IArticleService {
 
     long insertArticle(Article article);
 
-    void deleteArticleById(long articleId, String name);
+    void deleteArticleById(long articleId);
 
     int getArticlePage(String name, Long id);
 
-    void updateArticle(Article article, String name, int page);
+    void updateArticle(Article article);
 }

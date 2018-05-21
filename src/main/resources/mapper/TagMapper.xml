@@ -27,8 +27,8 @@
     where user_name = #{userName,jdbcType=VARCHAR}
     and name = #{name,jdbcType=VARCHAR}
   </select>
-  
-  
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -40,10 +40,10 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.jeffrey.retalk.entity.Tag" >
-    insert into tag (id, name, description, 
+    insert into tag (name, description,
       user_name, created_time, modified_time
       )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+    values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
       #{userName,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedTime,jdbcType=TIMESTAMP}
       )
   </insert>

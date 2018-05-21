@@ -15,6 +15,8 @@ public class Tag {
 
     private Date modifiedTime;
 
+    //private List<Article> articles;
+
     public Long getId() {
         return id;
     }
@@ -34,6 +36,7 @@ public class Tag {
     public String getDescription() {
         return description;
     }
+
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
@@ -62,4 +65,6 @@ public class Tag {
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
     }
+
+
 }

@@ -7,6 +7,10 @@
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <collection property="tags" ofType="com.jeffrey.retalk.entity.Tag" >
+      <result property="id" column="tag_id" javaType="long" jdbcType="INTEGER"/>
+      <result property="name" column="tag_name" javaType="string" jdbcType="VARCHAR"/>
+    </collection>
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.jeffrey.retalk.entity.Article" extends="BaseResultMap" >
     <result column="body" property="body" jdbcType="LONGVARCHAR" />
@@ -14,6 +18,7 @@
   <sql id="Base_Column_List" >
     id, title, created_time, modified_time, user_name
   </sql>
+
   <sql id="Blob_Column_List" >
     body
   </sql>
@@ -23,15 +28,22 @@
     FROM article
     where user_name = #{userName,jdbcType=VARCHAR}
   </select>
-  <select id="queryByUserName" resultType="Article">
+  <select id="queryByUserName"  resultMap="BaseResultMap">
     select
-    <include refid="Base_Column_List" />
-    FROM article
-    where user_name = #{userName,jdbcType=VARCHAR}
-    ORDER BY created_time DESC
+    a.*,c.id tag_id,c.name tag_name
+    FROM article a
+    LEFT JOIN
+    article_tag b
+    on a.id = b.article_id
+    LEFT JOIN
+    tag c
+    on
+    c.id = b.tag_id
+    where
+    a.user_name = #{userName,jdbcType=VARCHAR}
     limit #{offset,jdbcType=INTEGER},#{limit,jdbcType=INTEGER}
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long"  >
     select 
     <include refid="Base_Column_List" />
     ,
@@ -43,7 +55,7 @@
     delete from article
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jeffrey.retalk.entity.Article" >
+  <insert id="insert" parameterType="com.jeffrey.retalk.entity.Article" keyProperty="id">
     insert into article (title, created_time,
       modified_time, user_name, body
       )
@@ -51,7 +63,7 @@
       #{modifiedTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, #{body,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.Article" >
+  <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.Article" keyProperty="id">
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -43,7 +43,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public void deleteArticleById(long articleId, String name) {
+    public void deleteArticleById(long articleId) {
         articleMapper.deleteByPrimaryKey(articleId);
     }
 
@@ -53,7 +53,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public void updateArticle(Article article, String name, int page) {
+    public void updateArticle(Article article) {
         articleMapper.updateByPrimaryKeySelective(article);
     }
 }

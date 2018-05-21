@@ -1,6 +1,7 @@
 package com.jeffrey.retalk.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Article {
     private Long id;
@@ -14,6 +15,8 @@ public class Article {
     private String userName;
 
     private String body;
+
+    private List<Tag> tags;
 
     public Long getId() {
         return id;
@@ -61,5 +64,13 @@ public class Article {
 
     public void setBody(String body) {
         this.body = body == null ? null : body.trim();
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

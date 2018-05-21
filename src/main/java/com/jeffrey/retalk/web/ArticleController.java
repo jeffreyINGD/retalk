@@ -4,12 +4,12 @@ import com.jeffrey.retalk.entity.Article;
 import com.jeffrey.retalk.entity.Tag;
 import com.jeffrey.retalk.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -36,11 +36,13 @@ public class ArticleController {
         return "article/index";
     }
 
-    @PostMapping(value = "/article/add",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String newArticle(@RequestBody Article article) {
+    @PostMapping(value = "/article/add")
+    public Long newArticle(@RequestBody Article article) {
+        article.setCreatedTime(new Date());
+        article.setModifiedTime(new Date());
+        article.setUserName("");
         long id = articleService.insertArticle(article);
-        return id+"";
+        return article.getId();
     }
 
     @GetMapping("/article/new")
@@ -53,6 +55,7 @@ public class ArticleController {
 
     @GetMapping(value = "/article/{articleId}")
     public String getArticle(@PathVariable long articleId, ModelMap modelMap, Principal principal) {
+
         Article article = articleService.getArticleById(articleId, "");
 
         modelMap.addAttribute("article", article);
@@ -87,7 +90,7 @@ public class ArticleController {
 
     @PostMapping(value = "/article/delete/{articleId}")
     public String deleteArticle(@PathVariable long articleId, Principal principal) {
-        articleService.deleteArticleById(articleId, "");
+        articleService.deleteArticleById(articleId);
 
         return "redirect:/";
     }
@@ -95,8 +98,8 @@ public class ArticleController {
     @ResponseBody
     @PostMapping(value = "/article/update")
     public Article updateArticle(@ModelAttribute Article article, Principal principal) {
-        int page = articleService.getArticlePage("", article.getId());
-        articleService.updateArticle(article, "", page);
+        //int page = articleService.getArticlePage("", article.getId());
+        articleService.updateArticle(article);
 
         return article;
     }
