@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public long insertArticle(Article article) {
+    public Long insertArticle(Article article) {
         return articleMapper.insert(article);
     }
 

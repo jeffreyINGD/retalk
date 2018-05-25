@@ -9,7 +9,7 @@ public interface ArticleMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(Article record);
+    Long insert(Article record);
 
     int insertSelective(Article record);
 

@@ -95,6 +95,7 @@
 
             $("#saveArticle").click(function () {
                 $("#articleBody").text(simplemde.value());
+                alert(flag)
                 if (flag) {
                     updateArticle();
                 }
@@ -160,9 +161,9 @@
         <!-- display article -->
         <form id="articleForm" class="form-group" th:action="@{/article/modify}"
               th:object="${article}" method="post">
-            <br/><input id="articleId" type="text" th:field="*{id}" hidden="hidden" placeholder="Title" />
-            <input id="articleTitle" class="form-control" type="text" th:field="*{title}" /><br/>
-            <textarea id="articleBody" th:text="${article.body}" th:field="*{body}"></textarea>
+            <br/><input id="articleId"  type="text" th:field="*{id}" hidden="hidden" placeholder="Title" />
+            <input id="title"  class="form-control" type="text" th:field="*{title}" /><br/>
+            <textarea id="articleBody"  th:text="${article.body}" th:field="*{body}"></textarea>
             <br/>
         </form><!-- display article -->
 

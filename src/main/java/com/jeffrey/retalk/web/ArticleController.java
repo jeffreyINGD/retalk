@@ -41,7 +41,7 @@ public class ArticleController {
         article.setCreatedTime(new Date());
         article.setModifiedTime(new Date());
         article.setUserName("");
-        long id = articleService.insertArticle(article);
+        Long id = articleService.insertArticle(article);
         return article.getId();
     }
 
@@ -80,13 +80,6 @@ public class ArticleController {
         return articleService.getArticlesOfOnePage("", page,15);
     }
 
-    @PostMapping(value = "/article/new")
-    @ResponseBody
-    public long insertArticle(Principal principal) {
-        Article article = new Article();
-        article.setUserName((principal.getName()));
-        return articleService.insertArticle(article);
-    }
 
     @PostMapping(value = "/article/delete/{articleId}")
     public String deleteArticle(@PathVariable long articleId, Principal principal) {
@@ -97,7 +90,7 @@ public class ArticleController {
 
     @ResponseBody
     @PostMapping(value = "/article/update")
-    public Article updateArticle(@ModelAttribute Article article, Principal principal) {
+    public Article updateArticle(@ModelAttribute("article") Article article) {
         //int page = articleService.getArticlePage("", article.getId());
         articleService.updateArticle(article);
 

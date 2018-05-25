@@ -112,8 +112,10 @@ function updateArticle() {
     checkArticleIsExisted();
 
     var form = $('#articleForm')[0];
-    var data = new FormData(form);
 
+    var data = new FormData(form);
+    alert(data)
+    alert(data.toString())
     $("#saveArticle").prop("disabled", true);
     $.ajax({
         type: "POST",

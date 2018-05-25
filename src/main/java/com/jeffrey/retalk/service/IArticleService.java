@@ -16,7 +16,7 @@ public interface IArticleService {
 
     List<Tag> getAllTagsOfOneArticle(long articleId);
 
-    long insertArticle(Article article);
+    Long insertArticle(Article article);
 
     void deleteArticleById(long articleId);
 
