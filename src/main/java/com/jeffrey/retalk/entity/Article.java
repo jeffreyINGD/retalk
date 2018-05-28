@@ -16,6 +16,9 @@ public class Article {
 
     private String body;
 
+    private Integer isTop;
+    private Integer isIndex;
+
     private List<Tag> tags;
 
     public Long getId() {
@@ -72,5 +75,21 @@ public class Article {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public Integer getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(Integer isTop) {
+        this.isTop = isTop;
+    }
+
+    public Integer getIsIndex() {
+        return isIndex;
+    }
+
+    public void setIsIndex(Integer isIndex) {
+        this.isIndex = isIndex;
     }
 }

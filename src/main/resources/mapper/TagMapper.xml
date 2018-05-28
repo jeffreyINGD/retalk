@@ -39,7 +39,7 @@
     delete from tag
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jeffrey.retalk.entity.Tag" >
+  <insert id="insert" parameterType="com.jeffrey.retalk.entity.Tag"  keyProperty="id">
     insert into tag (name, description,
       user_name, created_time, modified_time
       )

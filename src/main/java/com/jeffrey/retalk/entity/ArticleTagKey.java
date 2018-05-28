@@ -1,6 +1,7 @@
 package com.jeffrey.retalk.entity;
 
 public class ArticleTagKey {
+    private Long  id;
     private Long articleId;
 
     private Long tagId;
@@ -19,5 +20,13 @@ public class ArticleTagKey {
 
     public void setTagId(Long tagId) {
         this.tagId = tagId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

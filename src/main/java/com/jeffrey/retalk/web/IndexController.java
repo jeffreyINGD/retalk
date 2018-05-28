@@ -2,6 +2,7 @@ package com.jeffrey.retalk.web;
 
 import com.jeffrey.retalk.entity.Article;
 import com.jeffrey.retalk.service.IArticleService;
+import com.jeffrey.retalk.service.ITagService;
 import com.jeffrey.retalk.service.MenuMangeService;
 import com.jeffrey.retalk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class IndexController {
     private UserService userService;
     @Autowired
     private MenuMangeService menuMangeService;
-
+    @Autowired
+    private ITagService itg;
     @GetMapping("/")
     public String index(ModelMap modelMap,
                         HttpSession session) {
@@ -34,10 +36,12 @@ public class IndexController {
         {
             long articlesCount = articleService.getArticlesCount("");
         }*/
+        List tags = itg.getAllTags("");
         long articlesCount = articleService.getArticlesCount("");
         List<Article> articles = articleService.getArticlesOfOnePage("", 0,15);
         modelMap.addAttribute("articles", articles);
         modelMap.addAttribute("menus", menus);
+        modelMap.addAttribute("tags",tags);
         modelMap.addAttribute("articlesCount", articlesCount);
         modelMap.addAttribute("isIndex", true);
 

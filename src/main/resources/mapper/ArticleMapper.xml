@@ -7,6 +7,8 @@
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result property="isTop" column="isTop" javaType="Integer" jdbcType="INTEGER"/>
+    <result property="isIndex" column="isIndex" javaType="Integer" jdbcType="INTEGER"/>
     <collection property="tags" ofType="com.jeffrey.retalk.entity.Tag" >
       <result property="id" column="tag_id" javaType="long" jdbcType="INTEGER"/>
       <result property="name" column="tag_name" javaType="string" jdbcType="VARCHAR"/>
@@ -16,7 +18,7 @@
     <result column="body" property="body" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, created_time, modified_time, user_name
+    id, title, created_time, modified_time,isTop,isIndex, user_name
   </sql>
 
   <sql id="Blob_Column_List" >
@@ -57,10 +59,11 @@
   </delete>
   <insert id="insert" parameterType="com.jeffrey.retalk.entity.Article" keyProperty="id">
     insert into article (title, created_time,
-      modified_time, user_name, body
+      modified_time, user_name, body,isTop,isIndex
       )
     values (#{title,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP},
       #{modifiedTime,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, #{body,jdbcType=LONGVARCHAR}
+      ,#{istop,jdbcType=INTEGER},#{isIndex,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.jeffrey.retalk.entity.Article" keyProperty="id">
@@ -84,6 +87,12 @@
       <if test="body != null" >
         body,
       </if>
+      <if test="isTop != null" >
+        isTop,
+      </if>
+      <if test="isIndex != null" >
+        isIndex,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -103,6 +112,12 @@
       </if>
       <if test="body != null" >
         #{body,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="isTop != null" >
+        #{isTop,jdbcType=INTEGER},
+      </if>
+      <if test="isIndex != null" >
+        #{isIndex,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>

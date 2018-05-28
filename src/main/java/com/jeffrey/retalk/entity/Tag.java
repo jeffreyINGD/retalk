@@ -66,5 +66,15 @@ public class Tag {
         this.modifiedTime = modifiedTime;
     }
 
-
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", userName='" + userName + '\'' +
+                ", createdTime=" + createdTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
+    }
 }

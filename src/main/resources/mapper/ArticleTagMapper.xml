@@ -4,13 +4,14 @@
   <resultMap id="BaseResultMap" type="com.jeffrey.retalk.entity.ArticleTagKey" >
     <id column="article_id" property="articleId" jdbcType="BIGINT" />
     <id column="tag_id" property="tagId" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="BIGINT" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="com.jeffrey.retalk.entity.ArticleTagKey" >
     delete from article_tag
     where article_id = #{articleId,jdbcType=BIGINT}
       and tag_id = #{tagId,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.jeffrey.retalk.entity.ArticleTagKey" >
+  <insert id="insert" parameterType="com.jeffrey.retalk.entity.ArticleTagKey" keyProperty="id">
     insert into article_tag (article_id, tag_id)
     values (#{articleId,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT})
   </insert>
