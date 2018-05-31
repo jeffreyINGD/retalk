@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -37,16 +38,30 @@ public class IndexController {
             long articlesCount = articleService.getArticlesCount("");
         }*/
         List tags = itg.getAllTags("");
-        long articlesCount = articleService.getArticlesCount("");
-        List<Article> articles = articleService.getArticlesOfOnePage("", 0,15);
+        List<Article> articles = articleService.getArticlesOfIndex("", 0,15);
         modelMap.addAttribute("articles", articles);
         modelMap.addAttribute("menus", menus);
         modelMap.addAttribute("tags",tags);
-        modelMap.addAttribute("articlesCount", articlesCount);
         modelMap.addAttribute("isIndex", true);
 
         return "index";
     }
 
+    @GetMapping("/login")
+    public String loginPage(ModelMap modelMap,
+                            HttpSession session) {
+        return "auth/login";
+    }
 
+    @PostMapping("/login")
+    public String login(ModelMap modelMap,
+                        HttpSession session) {
+        return index(modelMap,session);
+    }
+
+    @GetMapping("/about")
+    public String about(ModelMap modelMap,
+                            HttpSession session) {
+        return "about";
+    }
 }

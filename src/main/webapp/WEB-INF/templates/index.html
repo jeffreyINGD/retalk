@@ -1,25 +1,20 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
-    <title>Index</title>
+    <title>index</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- csrf -->
-    <!--<meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />-->
-
     <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/8.3.1/markdown-it.min.js"></script>
     <!-- static file -->
     <script src="/js/common.js"></script>
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/sidebar.css"/>
-
+    <link rel="stylesheet" href="/css/tag.css" />
     <script>
         $(document).ready(function () {
 
@@ -47,7 +42,12 @@
 
             $('#back-to-top').tooltip('show');
 
-            getAllTags();
+            var md = window.markdownit();
+            $(".articleBody").each(function () {
+                var result = md.render($(this).text());
+                $(this).html(result);
+                }
+            );
 
         });
     </script>
@@ -59,78 +59,117 @@
 <div th:replace="fragments/header :: header"></div>
 <!-- sidebar -->
 <!--<div th:replace="fragments/sidebar :: sidebar"></div>-->
-
 <div class="container">
+    <!--<h1 class="page-header">
+        retalk</small>
+    </h1>
+    <nav class="navbar navbar-inverse">
+        &lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"></a>
+        </div>
+        <div id="navbar-menu" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">首页</a></li>
+                <li><a href="#">分类</a></li>
+                <li><a href="#">文章</a></li>
+                <li><a href="#">趣事</a></li>
+                <li><a href="#">关于我</a></li>
+            </ul>
+        </div>
+    </nav>-->
 
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10" id="main">
+    <div id="content" class="row-fluid">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10" id="main">
 
-            <!-- display a article -->
-            <section th:each="article : ${articles}" class="article">
-                <!-- article info -->
-                <div class="articleInfo">
-                    <!-- display article title -->
-                    <span th:if="${article.title} == null">
+                    <!-- display a article -->
+                    <section th:each="article : ${articles}" class="article">
+                        <!-- article info -->
+                        <div class="articleInfo">
+                            <!-- display article title -->
+                            <span th:if="${article.title} == null">
                         <a class="articleTitle" th:href="@{'/article/' + ${article.id}}">Untitled</a>
                     </span>
-                    <span th:if="${article.title} == ''">
+                            <span th:if="${article.title} == ''">
                         <a class="articleTitle" th:href="@{'/article/' + ${article.id}}">Untitled</a>
                     </span>
-                    <span th:if="${article.title} != null">
+                            <span th:if="${article.title} != null">
                         <a class="articleTitle" th:href="@{'/article/' + ${article.id}}"
                            th:text="${article.title}">Untitled</a>
                     </span><!-- display article title -->
 
-                    <!-- article created time -->
-                    <span class="createdTime" style="margin-right: 10px;"
-                          th:text="${#dates.format(article.createdTime, 'yy-MM-dd HH:mm')}">
+                            <!-- article created time -->
+                            <span class="createdTime" style="margin-right: 10px;"
+                                  th:text="${#dates.format(article.createdTime, 'yyyy-MM-dd HH:mm')}">
                         created time
                     </span><!-- article created time -->
-                </div><!-- article info -->
+                        </div><!-- article info -->
 
-                <!-- article body -->
-                <div th:if="${article.body != null}">
-                    <span th:if="${#strings.length(article.body) &lt; 100}">
+                        <!-- article body -->
+                        <div th:if="${article.body != null}">
+                    <span th:if="${#strings.length(article.body) &lt; 1000}">
                         <div th:text="${article.body}" class="articleBody"></div>
                     </span>
-                    <span th:if="${#strings.length(article.body).equals(100)}">
+                    <span th:if="${#strings.length(article.body).equals(1000)}">
                         <div th:text="${aritcle.body}" class="articleBody"></div>
                     </span>
-                    <span th:if="${#strings.length(article.body) &gt; 100}">
-                        <div th:text="${#strings.substring(article.body, 0, 100) + '...'}" class="articleBody"></div>
+                            <span th:if="${#strings.length(article.body) &gt; 1000}">
+                        <div th:text="${#strings.substring(article.body, 0, 1000) + '...'}" class="articleBody"></div>
                     </span>
-                </div><!-- article body -->
 
-                <!-- article tags -->
-                <div style="margin-top: 10px">
-                    <tr th:each="tag : ${article.tags}">
-                        <span style="display: none;" th:text="${tag.id}"></span>
-                        <a href="#" class="glyphicon glyphicon-tag"  style="color: #888888;text-decoration: none;">
-                             <span th:text="' ' + ${tag.name}"></span>&nbsp;&nbsp;
-                        </a>
-                    </tr>
-                </div><!-- article tags -->
+                        </div><!-- article body -->
 
-                <hr/>
+                        <!-- article tags -->
+                        <div style="margin-top: 10px">
+                            <tr th:each="tag : ${article.tags}">
+                                <span style="display: none;" th:text="${tag.id}"></span>
+                                <a href="#" class="glyphicon glyphicon-tag"  style="color: #888888;text-decoration: none;">
+                                    <span th:text="' ' + ${tag.name}"></span>&nbsp;&nbsp;
+                                </a>
+                            </tr>
+                        </div><!-- article tags -->
 
-            </section><!-- display a article -->
+                        <hr/>
 
-            </div>
+                    </section><!-- display a article -->
 
-        </div><!-- row -->
+                </div>
 
-    <div class="row">
-
-        <div class="text-center">
-            <ul class="pagination" th:if="${articlesCount &gt; 10}">
-                <li th:each="i : ${#numbers.sequence(1, articlesCount/10+1)}">
-                    <a href="#" class="next" th:text="${i}"></a>
-                </li>
-            </ul>
+            </div><!-- row -->
         </div>
 
-    </div><!-- row -->
+        <div class="col-md-3">
 
+                <div class="row">
+                    <div class="col-sm-offset-3 col-sm-5" style="margin-bottom: 10px;font-size: medium;font-weight: 300;"><span style="font-size: medium">标签</span></div>
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <div class="tagcloud03">
+                            <ul>
+                                <li th:each="tag : ${tags}">
+                                    <a th:href="'/tag/' + ${tag.id}" th:inline="text">
+                                        [[${tag.name}]]
+                                        <span th:text="${#lists.size(tag.articles)}"></span>
+                                    </a>
+                                </li>
+                                <li><a href="#">...</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+              <!--  <div class="row">
+                    <div class="tagcloud01" id="indexTags"><div/>
+                </div>-->
+
+        </div>
+    </div>
     <a id="back-to-top" href="#" class="btn btn-default btn-md back-to-top" role="button"
        data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span>
     </a>

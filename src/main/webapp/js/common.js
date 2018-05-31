@@ -202,31 +202,30 @@ function getAllTags() {
         },
         // add csrf header and token
         beforeSend: function (xhr) {
-            var header = $("meta[name='_csrf_header']").attr("content");
+           /* var header = $("meta[name='_csrf_header']").attr("content");
             var token = $("meta[name='_csrf']").attr("content");
-            xhr.setRequestHeader(header, token);
+            xhr.setRequestHeader(header, token);*/
         }
     });
 }
 
 
 function displayAllTags(tags) {
-    var template = `<div id="wrapper"><div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
+    var template = `<div >
+            <ul>
+                <li >
                     <a href="#" class="allNotes">All Notes</a>
                 </li>`;
 
     $.each(tags, function (index, tag) {
         template += `<li>
                     <span style="display: none;">` + tag["id"] + `</span>
-                    <a href="#" class="changeTag">
+                    <a href="#" >
                     <span>` + tag["name"] + "  (" + tag["articles"].length + `)</span>
                     </a></li>`;
     });
     template += '</ul></div></div>';
-
-    $(".navbar").after(template);
+    $("#indexTags").after(template);
 
     $("#sidebar-toggle").click(function (e) {
         e.preventDefault();

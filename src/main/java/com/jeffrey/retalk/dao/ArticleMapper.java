@@ -1,5 +1,6 @@
 package com.jeffrey.retalk.dao;
 
+import com.jeffrey.retalk.dto.ArchiveGroup;
 import com.jeffrey.retalk.entity.Article;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,10 @@ public interface ArticleMapper {
     long countByUserName(String userName);
 
     List<Article> queryByUserName(@Param("userName")String userName, @Param("offset") int offset, @Param("limit") int limit);
+
+    List queryIndexByUserName(@Param("userName")String userName,@Param("offset") int offset, @Param("limit") int limit);
+
+    List<ArchiveGroup> groupByYearMonth(@Param("userName") String userName);
+
+    List<Article> getArticlesByYearsMonth(@Param("userName")String userName,@Param("yearMonth")String yearMonth);
 }

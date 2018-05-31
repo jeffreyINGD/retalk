@@ -10,6 +10,9 @@ import java.util.List;
  */
 public interface IArticleService {
     long getArticlesCount(String loginName);
+
+    List getArticlesOfIndex(String loginName,int pageNo,int pageSize );
+
     List getArticlesOfOnePage(String loginName,int pageNo,int pageSize);
 
     Article getArticleById(long articleId, String name);
@@ -23,4 +26,8 @@ public interface IArticleService {
     int getArticlePage(String name, Long id);
 
     void updateArticle(Article article);
+
+    List groupByYearMonth(String loginName);
+
+    List getArticlesByYearMonth(String loginName,String yearAndYear);
 }

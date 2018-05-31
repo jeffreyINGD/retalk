@@ -33,10 +33,8 @@ public class TagController {
     public String getOneTag(@PathVariable("tagId") long tagId, ModelMap modelMap, Principal principal) {
         Tag tag = tagService.getTagById(tagId);
         List<Tag> tags = tagService.getAllTags("");
-
         modelMap.addAttribute("tag", tag);
         modelMap.addAttribute("tags", tags);
-
         return "tag/display";
     }
 
@@ -64,7 +62,7 @@ public class TagController {
     @ResponseBody
     @PostMapping("/tag/all")
     public List<Tag> getAllTags(Principal principal) {
-        return tagService.getAllTags(principal.getName());
+        return tagService.getAllTags("");
     }
 
     @PostMapping("/tag/delete/{tagId}")

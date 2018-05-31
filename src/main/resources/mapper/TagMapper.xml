@@ -8,6 +8,12 @@
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
     <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+    <collection property="articles" ofType="com.jeffrey.retalk.entity.Article" >
+      <result property="id" column="article_id" javaType="long" jdbcType="INTEGER"/>
+      <result property="title" column="title"  jdbcType="VARCHAR"/>
+      <result property="body" column="body"  jdbcType="VARCHAR"/>
+      <!--<result property="article_id" column="name" javaType="string" jdbcType="VARCHAR"/>-->
+    </collection>
   </resultMap>
   <sql id="Base_Column_List" >
     id, name, description, user_name, created_time, modified_time
@@ -15,9 +21,14 @@
 
   <select id="queryAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
-    <include refid="Base_Column_List" />
-    from tag
-    where user_name = #{userName,jdbcType=VARCHAR}
+    tag.id, name, tag.description, tag.user_name, tag.created_time, tag.modified_time,art_tag.article_id,
+    art.title,art.body
+    from tag tag
+    LEFT JOIN article_tag art_tag
+    on tag.id = art_tag.tag_id
+    LEFT JOIN article art
+    on art.id = art_tag.article_id
+    where tag.user_name = #{userName,jdbcType=VARCHAR}
   </select>
 
   <select id="queryByTagNameAndUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -30,10 +41,16 @@
 
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from tag
-    where id = #{id,jdbcType=BIGINT}
+    select
+    tag.id, name, tag.description, tag.user_name, tag.created_time, tag.modified_time,art_tag.article_id,
+    art.title,art.body
+    from tag tag
+    LEFT JOIN article_tag art_tag
+    on tag.id = art_tag.tag_id
+    LEFT JOIN article art
+    on art.id = art_tag.article_id
+
+    where tag.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tag

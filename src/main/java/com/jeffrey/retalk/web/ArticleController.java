@@ -1,16 +1,18 @@
 package com.jeffrey.retalk.web;
 
+import com.jeffrey.retalk.dto.ArchiveGroup;
 import com.jeffrey.retalk.entity.Article;
 import com.jeffrey.retalk.entity.Tag;
 import com.jeffrey.retalk.service.IArticleService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -97,4 +99,22 @@ public class ArticleController {
         return article;
     }
 
+
+    @GetMapping("/article/archive")
+    public String archive(ModelMap modelMap,
+                        HttpSession session) {
+
+        List<ArchiveGroup> archiveGroups = articleService.groupByYearMonth("");
+        Map<ArchiveGroup,List<Article>> archives = new LinkedHashMap<ArchiveGroup,List<Article>>();
+        for (ArchiveGroup archiveGroup : archiveGroups)
+        {
+            if(StringUtils.isNotBlank(archiveGroup.getTime()))
+            {
+                List article = articleService.getArticlesByYearMonth("",archiveGroup.getTime());
+                archives.put(archiveGroup,article);
+            }
+        }
+        modelMap.addAttribute("archives",archives);
+        return "/article/archive";
+    }
 }

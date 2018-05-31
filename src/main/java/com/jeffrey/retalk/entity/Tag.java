@@ -1,6 +1,7 @@
 package com.jeffrey.retalk.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Tag {
     private Long id;
@@ -15,7 +16,7 @@ public class Tag {
 
     private Date modifiedTime;
 
-    //private List<Article> articles;
+    private List<Article> articles;
 
     public Long getId() {
         return id;
@@ -64,6 +65,14 @@ public class Tag {
 
     public void setModifiedTime(Date modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public List<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
     @Override

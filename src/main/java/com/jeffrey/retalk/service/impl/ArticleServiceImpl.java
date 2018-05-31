@@ -23,9 +23,15 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
+    public List getArticlesOfIndex(String loginName, int pageNo, int pageSize) {
+        return articleMapper.queryIndexByUserName(loginName,pageNo,pageSize);
+    }
+
+    @Override
     public List getArticlesOfOnePage(String loginName, int pageNo,int pageSize) {
         return articleMapper.queryByUserName(loginName,pageNo,pageSize);
     }
+
 
     @Override
     public Article getArticleById(long articleId, String userName) {
@@ -55,5 +61,14 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public void updateArticle(Article article) {
         articleMapper.updateByPrimaryKeySelective(article);
+    }
+
+    @Override
+    public List groupByYearMonth(String loginName) {
+        return articleMapper.groupByYearMonth(loginName);
+    }
+    @Override
+    public List getArticlesByYearMonth(String loginName,String yearAndMonth) {
+        return articleMapper.getArticlesByYearsMonth(loginName,yearAndMonth);
     }
 }
