@@ -62,65 +62,42 @@
 <div class="container">
 
         <div class="row">
-            <div class="col-sm-offset-1 col-sm-10" id="main">
+            <div class="col-sm-offset-0 col-sm-12" id="main">
 
 
-           <section th:each="archive : ${archives}" class="article">
+           <section th:each="archive : ${archives}" >
 
-               <div class="span8">
+               <div class="span8  bg-info" style="margin-bottom: 10px;">
                    <span class="badge badge-info" th:text="${archive.key.time}"></span>
-
+                   <span class="badge badge-info" style="float: right;" th:text="${archive.key.count}"></span>
                </div>
-
+               <small>
                <!-- display a article -->
-               <section th:each="article : ${archive.value}" class="article">
+               <section th:each="article : ${archive.value}" class="col-sm-offset-2 article">
                    <!-- article info -->
-                   <div class="articleInfo">
+
+                   <div class="articleInfo text-primary">
+
                        <!-- display article title -->
-                       <span th:if="${article.title} == null">
+                       <small th:if="${article.title} == null">
                         <a class="articleTitle" th:href="@{'/article/' + ${article.id}}">Untitled</a>
-                    </span>
-                       <span th:if="${article.title} == ''">
+                       </small>
+                       <small th:if="${article.title} == ''">
                         <a class="articleTitle" th:href="@{'/article/' + ${article.id}}">Untitled</a>
-                    </span>
-                       <span th:if="${article.title} != null">
-                        <a class="articleTitle" th:href="@{'/article/' + ${article.id}}"
+                       </small>
+                       <small th:if="${article.title} != null">
+                        <a class="articleTitle text-primary" th:href="@{'/article/' + ${article.id}}"
                            th:text="${article.title}">Untitled</a>
-                    </span><!-- display article title -->
+                       </small><!-- display article title -->
 
                        <!-- article created time -->
-                       <span class="createdTime" style="margin-right: 10px;"
-                             th:text="${#dates.format(article.createdTime, 'yy-MM-dd HH:mm')}">
+                       <span class="createdTime text-primary" style="margin-right: 10px;"
+                             th:text="${#dates.format(article.createdTime, 'yyyy-MM-dd HH:mm')}">
                         created time
                     </span><!-- article created time -->
                    </div><!-- article info -->
-
-                   <!-- article body -->
-                   <div th:if="${article.body != null}">
-                    <span th:if="${#strings.length(article.body) &lt; 100}">
-                        <div th:text="${article.body}" class="articleBody"></div>
-                    </span>
-                       <span th:if="${#strings.length(article.body).equals(100)}">
-                        <div th:text="${aritcle.body}" class="articleBody"></div>
-                    </span>
-                       <span th:if="${#strings.length(article.body) &gt; 100}">
-                        <div th:text="${#strings.substring(article.body, 0, 100) + '...'}" class="articleBody"></div>
-                    </span>
-                   </div><!-- article body -->
-
-                   <!-- article tags -->
-                   <div style="margin-top: 10px">
-                       <tr th:each="tag : ${article.tags}">
-                           <span style="display: none;" th:text="${tag.id}"></span>
-                           <a href="#" class="changeTag" style="color: #888888;text-decoration: none;">
-                               # <span th:text="' ' + ${tag.name}"></span>&nbsp;&nbsp;
-                           </a>
-                       </tr>
-                   </div><!-- article tags -->
-
-                   <hr/>
-
                </section><!-- display a article -->
+               </small>
            </section>
 
 
