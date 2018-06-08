@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <title th:text="${article.title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -31,6 +33,23 @@
     <link rel="stylesheet" href="/css/base.css" />
 
     <script>
+
+        function articleDelete(id)
+        {
+            $.ajax({
+                type: "post",
+                url: "/article/delete/" + id,
+                timeout: 600000,
+                success: function () {
+                    window.location.href = "/";
+                },
+                error: function (e) {
+                    alert("删除失败")
+                }
+            });
+
+        }
+
         $(document).ready(function () {
             // markdown parse
             var md = window.markdownit();
@@ -93,6 +112,7 @@
                 </span><!-- display article title -->
 
                 <!-- delete -->
+                <shiro:authenticated>
                 <small>
                     <a id="articleDelete" role="menuitem" href="#"
                        class="glyphicon glyphicon-trash" style="float: right; padding-left: 15px;"></a>
@@ -102,6 +122,7 @@
                     <a th:href="@{'/article/modify/' + ${article.id}}"
                        class="glyphicon glyphicon-pencil" style="float: right;"></a>
                 </small><!-- edit -->
+                </shiro:authenticated>
             </h1>
 
             <!-- display article info -->

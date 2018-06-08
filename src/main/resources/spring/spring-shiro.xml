@@ -35,7 +35,7 @@
         <property name="filterChainDefinitions">
             <value>
                 / = anon
-                /article/** = authc
+                <!--/article/** = authc-->
                 /api/login/** = anon
                 /api/logout = logout
                 /css/** = anon
@@ -44,6 +44,20 @@
             </value>
         </property>
 
+    </bean>
+
+    <bean
+            class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">
+                    /unauthorized
+                </prop>
+                <prop key="org.apache.shiro.authz.UnauthenticatedException">
+                    /unauthenticated
+                </prop>
+            </props>
+        </property>
     </bean>
 
 </beans>

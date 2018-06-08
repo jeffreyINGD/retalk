@@ -84,10 +84,10 @@ public class ArticleController {
 
 
     @PostMapping(value = "/article/delete/{articleId}")
-    public String deleteArticle(@PathVariable long articleId, Principal principal) {
-        articleService.deleteArticleById(articleId);
-
-        return "redirect:/";
+    @ResponseBody
+    public String deleteArticle(@PathVariable String articleId, Principal principal) {
+        articleService.deleteArticleById(Integer.parseInt(articleId));
+        return "0";
     }
 
     @ResponseBody

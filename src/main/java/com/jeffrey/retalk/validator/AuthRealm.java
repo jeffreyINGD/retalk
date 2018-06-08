@@ -36,7 +36,6 @@ public class AuthRealm extends AuthorizingRealm {
         }
         User user = null;
         try {
-            System.out.println(usernamePasswordToken.getPassword());
             user = userService.getUser(userName,new String(usernamePasswordToken.getPassword()));
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -44,6 +43,7 @@ public class AuthRealm extends AuthorizingRealm {
         String msg = null;
         if(user == null)
         {
+            new AuthenticationException();
             return null;
         }
         else

@@ -12,19 +12,21 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 
 /**
  * Created by Administrator on 2018/5/3.
  */
-@RestController
+@Controller
 public class LoginController {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());
@@ -33,13 +35,15 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = "/api/login",method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam(value = "username") String account,
-                              @RequestParam(value = "password") String password, ModelAndView modelAndView,
-                              HttpServletRequest request){
+    public String login(@RequestParam(value = "username") String account,
+                        @RequestParam(value = "password") String password, ModelAndView modelAndView,
+                        HttpServletRequest request){
         LoginResult result = new LoginResult();
         try {
             Subject subject = SecurityUtils.getSubject();
+
             UsernamePasswordToken token = new UsernamePasswordToken(account, password);
+            token.setRememberMe(true);
             try {
                 subject.login(token);
             } catch (UnknownAccountException e) {
@@ -55,16 +59,16 @@ public class LoginController {
             String msg = null;
             if(user == null)
             {
-                return new ModelAndView("login");
+                return "redirect:/login";
             }
             else
             {
                 //msg = "登录成功";
-                return new ModelAndView("index");
+                return "redirect:/";
             }
 
         } catch (NoSuchAlgorithmException e) {
-            return new ModelAndView("login");
+            return "redirect:/login";
         }
     }
 

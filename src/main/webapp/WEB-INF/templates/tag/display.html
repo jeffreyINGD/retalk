@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <title th:text="${tag.name}">Tag</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -63,7 +65,9 @@
                     <!-- tag name -->
                     <span class="glyphicon glyphicon-tag"></span>
                     <span th:text="${tag.name}"></span>
+                    <shiro:authenticated>
                     <a href="#" class="glyphicon glyphicon-trash" style="float: right" id="tagDelete"></a>
+                    </shiro:authenticated>
                     <!-- tag created time -->
 <!--                    <span class="tagCreatedTime" th:text="${#dates.format(tag.createdTime, 'yy-MM-dd HH:mm')}">
                         created time
