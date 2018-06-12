@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Principal;
 
 /**
  * Created by Administrator on 2018/5/3.
@@ -72,4 +70,15 @@ public class LoginController {
         }
     }
 
+    @RequestMapping(value = "/unauthorized")
+    public String unauthorized(){
+                //msg = "登录成功";
+                return "unauthorized";
+    }
+
+    @RequestMapping(value = "/unauthenticated")
+    public String unauthenticated(){
+        //msg = "登录成功";
+        return "unauthenticated";
+    }
 }
